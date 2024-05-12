@@ -1,8 +1,9 @@
 const Assistant = require('../Models/assistantModel');
 const factory = require('./handlerFactory');
 
-exports.CreateAssistint = factory.createOne(Assistant);
-exports.getAssistint = factory.getOne(Assistant);
-exports.getAllAssistints = factory.getAll(Assistant);
-exports.updateAssistants = factory.updateOne(Assistant);
+// CRUD Operations
+exports.createAssistant = factory.createOne(Assistant);
+exports.getAssistant = factory.getOne(Assistant);
+exports.getAllAssistant = factory.getAll(Assistant);
+exports.updateAssistant = factory.updateOne(Assistant);
 exports.deleteAssistant = factory.deleteOne(Assistant);

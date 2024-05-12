@@ -1,9 +1,11 @@
-const catchAsync = require('./../utils/catchAsync');
-const AppError = require('./../utils/appError');
+// this file is reusable file for all CRUD Operations
+const asyncHandler = require('../utils/asyncHandler');
+const ApplicationError = require('../utils/ApplicationError');
 const { Model } = require('mongoose');
 
+// C- Create Document
 exports.createOne = (Model) =>
-  catchAsync(async (req, res, next) => {
+  asyncHandler(async (req, res, next) => {
     //   console.log(req.body);
     const doc = await Model.create(req.body);
     // console.log(newAssistint);
@@ -15,12 +17,13 @@ exports.createOne = (Model) =>
     });
   });
 
+// R- Read Document
 exports.getOne = (Model) =>
-  catchAsync(async (req, res, next) => {
+  asyncHandler(async (req, res, next) => {
     let query = Model.findById(req.params.id);
     const doc = await query;
     if (!doc) {
-      return next(new AppError('No Document With That Id', 404));
+      return next(new ApplicationError('No Document With That Id', 404));
     }
     res.status(200).json({
       status: 'Success',
@@ -30,8 +33,9 @@ exports.getOne = (Model) =>
     });
   });
 
+// R- Read Document
 exports.getAll = (Model) =>
-  catchAsync(async (req, res, next) => {
+  asyncHandler(async (req, res, next) => {
     let assistants = await Model.find();
     res.status(200).json({
       status: 'Success',
@@ -41,8 +45,9 @@ exports.getAll = (Model) =>
     });
   });
 
+// U- Update Document
 exports.updateOne = (Model) =>
-  catchAsync(async (req, res, next) => {
+  asyncHandler(async (req, res, next) => {
     // console.log(req.params.id);
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -50,7 +55,7 @@ exports.updateOne = (Model) =>
     });
 
     if (!doc) {
-      return next(new AppError('No Document With That Id', 404));
+      return next(new ApplicationError('No Document With That Id', 404));
     }
     res.status(201).json({
       status: 'Success',
@@ -60,12 +65,13 @@ exports.updateOne = (Model) =>
     });
   });
 
+//   D- Delete Document
 exports.deleteOne = (Model) =>
-  catchAsync(async (req, res, next) => {
+  asyncHandler(async (req, res, next) => {
     const doc = await Model.findByIdAndDelete(req.params.id);
 
     if (!doc) {
-      return next(new AppError('No Document With That Id', 404));
+      return next(new ApplicationError('No Document With That Id', 404));
     }
 
     res.status(204).json({

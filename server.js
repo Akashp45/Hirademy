@@ -4,12 +4,14 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 const app = require('./app');
 
-process.on('uncaughtException', (err) => {
+// Handlling uncaught exception
+process.on('exceptionHandler ', (err) => {
   console.log('Uncought Exception 💥 shutting Down...');
   console.log(err.name, err.message);
   process.exit(1);
 });
 
+// Connecting to MongoDb database
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD
@@ -30,7 +32,8 @@ const server = app.listen(port, () => {
   console.log(`Listining on ${port}.`);
 });
 
-process.on('unhandledRejection', (err) => {
+// Handling unhandeked Rejection
+process.on('promiseErrorHandler', (err) => {
   console.log(err.name, err.message);
   console.log('Unhandled Rejection 💥 Shutting Down...');
   server.close(() => {
