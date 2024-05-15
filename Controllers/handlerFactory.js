@@ -37,8 +37,10 @@ exports.getOne = (Model) =>
 exports.getAll = (Model) =>
   asyncHandler(async (req, res, next) => {
     let assistants = await Model.find();
+    const length = assistants.length;
     res.status(200).json({
       status: 'Success',
+      length,
       body: {
         assistants,
       },

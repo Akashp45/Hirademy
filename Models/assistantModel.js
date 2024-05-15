@@ -4,22 +4,22 @@ const validator = require('validator');
 const assistantScheme = new mongoose.Schema({
   name: {
     type: String,
-    require: [true, 'An assistant must have name'],
+    required: [true, 'An assistant must have name'],
   },
   email: {
     type: String,
-    require: [true, 'An assistant must have email address'],
+    required: [true, 'An assistant must have email address'],
     unique: true,
     lowercase: true,
     validate: [validator.isEmail, 'Please provide a valid email address'],
   },
   mobile: {
     type: Number,
-    require: [true, 'An assistant must have Mobile No'],
+    required: [true, 'An assistant must have Mobile No'],
   },
   salary: {
     type: Number,
-    require: [true, 'An assistant must have salary'],
+    required: [true, 'An assistant must have salary'],
   },
   city: {
     type: String,
@@ -30,7 +30,7 @@ const assistantScheme = new mongoose.Schema({
   },
   department: {
     type: String,
-    require: [true, 'An assistant must have depatment'],
+    required: [true, 'An assistant must have depatment'],
     enum: {
       values: ['finance', 'marketing', 'operations', 'customer-service'],
       message:
@@ -39,12 +39,12 @@ const assistantScheme = new mongoose.Schema({
   },
   role: {
     type: String,
-    require: [true, 'An assistant must have role'],
+    required: [true, 'An assistant must have role'],
     enum: {
-      values: ['assistant', 'manager', 'supervisor', 'coordinator'],
-      message:
-        'Role should be one of: assistant, manager, supervisor, coordinator',
+      values: ['assistant', 'supervisor', 'coordinator'],
+      message: 'Role should be one of: assistant, supervisor, coordinator',
     },
+    default: 'assistant',
   },
 });
 
